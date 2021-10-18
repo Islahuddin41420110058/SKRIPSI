@@ -27,7 +27,6 @@ function ArgMax(res){
     return label
 }
     
-
 async function classify(data){
     let in_dim = 4; // 
     
@@ -55,4 +54,3 @@ async function classify(data){
 module.exports = {
     classify: classify 
 }
-  
