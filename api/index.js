@@ -25,7 +25,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai suhu|kelembaban contohnya 30|200`
+        `masukan nilai S|K contohnya 30|200`
     );   
     state = 1;
 });
@@ -42,27 +42,27 @@ bot.on('message', (msg) => {
           console.log(jres1);
             
             cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres[1])]).then((jres2)=>{
-            bot.sendMessage(
-                msg.chat.id,
-                `Keadaan pompa yang diprediksi adalah ${jres1[0]} 1 = pompa on, 0 = pompa off`
-            ); 
-            bot.sendMessage(
-                msg.chat.id,
-                `Keadaan kipas yang diprediksi adalah ${jres1[0]} 1 = kipas on, 0 = kipas off`
-            ); 
-            bot.sendMessage(
-                msg.chat.id,
-                `Klasifikasi ${jres2}`
+                bot.sendMessage(
+                        msg.chat.id,
+                        `Keadaan pompa yang diprediksi adalah ${jres1[0]} 1 = pompa on, 0 = pompa off`
+                ); 
+                bot.sendMessage(
+                        msg.chat.id,
+                        `Keadaan kipas yang diprediksi adalah ${jres1[0]} 1 = kipas on, 0 = kipas off`
+                ); 
+                bot.sendMessage(
+                        msg.chat.id,
+                        `Klasifikasi ${jres2}`
             );     
             state = 0;
           })
-       })
-    }else{
+      })
+   }else{
         bot.sendMessage(
-                msg.chat.id,
+        msg.chat.id,
             `Please Click /start`
-            );
-            state = 0;
+        );
+        state = 0;
     }
 })
 
@@ -78,13 +78,13 @@ r.get('/predict/:S/:K', function(req, res, next) {
    })
 });
 
+
 r.get('/classify/:S/:K', function(req, res, next) {    
    model.predict(
         [
              parseFloat(req.params.S), // string to float
              parseFloat(req.params.K)
-        ]
-           
+        ]    
    ).then((jres)=>{
        cls_model.classify(
            [
@@ -95,9 +95,8 @@ r.get('/classify/:S/:K', function(req, res, next) {
            ]   
         ).then((jres_)=>{
            res.json({jres, jres_})
-       })
-   })
+        })
+    })
 });
-
 
 module.exports = r;
