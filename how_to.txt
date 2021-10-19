@@ -1,0 +1,23 @@
+1. download base_framework
+https://tinyurl.com/base-dnnjs
+
+
+2. download and install nodejs
+https://nodejs.org/en/download/
+after install completed:
+>> npm --version
+>> node --version
+>> npm i -g nodemon
+
+
+3. download and install github desktop
+https://desktop.github.com/
+
+4. download IDE => Visual studio / Atom
+https://code.visualstudio.com/download
+
+5. push base project to github, without node_modules
+
+6. creating telebot => BotFather
+
+7. edit code in Visual studio
