@@ -3,40 +3,116 @@ var r = express.Router();
 
 // load pre-trained model
 const model = require('./sdk/model.js');
+const cls_model = require('./sdk/cls_model.js');
 
 // Bot Setting
 const TelegramBot = require('node-telegram-bot-api');
-const token = '1733547356:AAEOX7oG_z09vS34M-DUHOm5YCPsXYDXohg'
+const token = '2119705816:AAGL8eEQSDnWNzg73TwjZcNlnlvWrDGl2q4'
 const bot = new TelegramBot(token, {polling: true});
 
-
+state = 0;
 // bots
 bot.onText(/\/start/, (msg) => { 
-    console.log(msg)
     bot.sendMessage(
         msg.chat.id,
         `hello ${msg.chat.first_name}, welcome...\n
-        click /menu to main menu`
+        Selamat datang di TA islahuddin
+        click /predict`
     );   
+    state = 0;
 });
 
-bot.onText(/\/menu/, (msg) => { 
-    console.log(msg)
+//input S dan K
+bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `this is your main menu`
+        `input nilai S|K contohnya 30|200`
     );   
+    state = 1;
 });
 
+bot.on('message', (msg) => {
+    if(state == 1){
+        s = msg.text.split("|");
+        model.predict(
+            [
+                parseFloat(s[0]), // string to float
+                parseFloat(s[1])
+            ]
+        ).then((jres1)=>{
+            console.log(jres1);
+            
+            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres1[1])]).then((jres2)=>{
+                bot.sendMessage(
+                        msg.chat.id,
+                        `nilai pompa yang diprediksi adalah ${jres1[0]}`
+                );
+                bot.sendMessage(
+                        msg.chat.id,
+                        `nilai kipas yang diprediksi adalah ${jres1[1]}`
+                ); 
+                bot.sendMessage(
+                        msg.chat.id,
+                        `Klasifikasi ${jres2}`
+                );
+                state = 0;
+            })
+        })
+    }else{
+        bot.sendMessage(
+        msg.chat.id,
+              `Please Click /start `
+        );
+        state = 0
+    }
+})
 // routers
-r.get('/prediction/:i/:r', function(req, res, next) {    
+r.get('/predict/:S/:K', function(req, res, next) {    
     model.predict(
         [
-            parseFloat(req.params.i), // string to float
-            parseFloat(req.params.r)
+            parseFloat(req.params.S), // string to float
+            parseFloat(req.params.K)
         ]
     ).then((jres)=>{
         res.json(jres);
+    })
+});
+
+//routers
+r.get('/classify/:S/:K', function(req, res, next) {    
+    model.predict(
+        [
+            parseFloat(req.params.S), // string to float
+            parseFloat(req.params.K)
+        ]
+    ).then((jres)=>{
+        cls_model.classify(
+            [
+                parseFloat(req.params.S), // string to float
+                parseFloat(req.params.K),
+                parseFloat(jres[0]),
+                parseFloat(jres[1])
+            ]
+        ).then((jres_)=>{
+            let status = "";
+            
+            if(jres_ == "1|1"){
+                status = "POMPA ON KIPAS ON"
+            }if(jres_ == "1|0"){
+                status = "POMPA ON KIPAS OFF"
+            }if(jres_ == "0|0"){
+                status = "POMPA OFF KIPAS OFF"
+            }
+            
+//             jres_.split("|");
+            
+            bot.sendMessage(
+                    2128268907, //msg.id
+                    `STATUS:: ${status}`
+            ); // to telegram
+            
+            res.json({jres, jres_})
+        })
     })
 });
 
