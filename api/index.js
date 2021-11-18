@@ -26,7 +26,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `input nilai S|K contohnya 30|200`
+        `input nilai S|K contohnya 30|50`
     );   
     state = 1;
 });
