@@ -1,14 +1,14 @@
 const tf = require('@tensorflow/tfjs-node');
 
-function normalized(data){ // i & r
-    S = (data[0] - 29.5) / 4.610176932
-    K = (data[1] - 359.5449438) / 93.43143058
+function normalized(data){ // suhu dan kelembaban
+    S = (data[0] - 29.5) / 4.611213458
+    K = (data[1] - 50.5) / 28.87509493
     return [S, K]
 }
 
 function denormalized(data){
-    O = (data[0] * 0.481371845) + 0.364641854
-    L = (data[1] * 0.496121923) + 0.5625
+    O = (data[0] * 0.497649258) + 0.45
+    L = (data[1] * 0.496233468) + 0.5625
     return [O, L]
 }
 
@@ -23,7 +23,7 @@ async function predict(data){
 
     try{
         // path load in public access => github
-        const path = 'https://raw.githubusercontent.com/Islahuddin41420110058/BISMILLAH-1-BISA/main/public/ex_model/model.json';
+        const path = 'https://raw.githubusercontent.com/Islahuddin41420110058/SKRIPSI/main/public/ex_model/model.json';
         const model = await tf.loadGraphModel(path);
         
         predict = model.predict(
