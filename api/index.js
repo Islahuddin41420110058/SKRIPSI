@@ -94,7 +94,7 @@ r.get('/classify/:S/:K', function(req, res, next) {
                 parseFloat(jres[1])
             ]
         ).then((jres_)=>{
-            let status = "";
+            let status = "POMPA OFF KIPAS ON";
             
             if(jres_ == "1|1"){
                 status = "POMPA ON KIPAS ON"
