@@ -1,10 +1,10 @@
 const tf = require('@tensorflow/tfjs-node');
 
 function normalized(data){ // i & r
-    S = (data[0] - 29.5) / 4.610176932
-    K = (data[1] - 359.5449438) / 93.43143058
-    O = (data[2] - 0.364641854) / 0.481371845
-    L = (data[3] - 0.5625) / 0.49612192
+    S = (data[0] - 29.5) / 4.611213458
+    K = (data[1] - 50.5) / 28.87509493
+    O = (data[2] - 0.45) / 0.497649258
+    L = (data[3] - 0.5625) / 0.496233468
     return [S, K, O, L]
 }
 
@@ -19,11 +19,11 @@ function ArgMax(res){
     }
     console.log(cls_data, argMax(cls_data));
     
-    if(argMax(cls_data) == 1){
+    if(argMax(cls_data) == 2){
         label = "1|0" //POMPA ON KIPAS OFF 
     }if(argMax(cls_data) == 0){
         label = "0|0" //POMPA OFF KIPAS OFF 
-    }if(argMax(cls_data) == 2){
+    }if(argMax(cls_data) == 3){
         label = "1|1" //POMPA ON KIPAS ON
     }
     return label
@@ -38,7 +38,7 @@ async function classify(data){
 
     try{
         // path load in public access => github
-        const path = 'https://raw.githubusercontent.com/Islahuddin41420110058/BISMILLAH-1-BISA/main/public/cls_model/model.json';
+        const path = 'https://raw.githubusercontent.com/Islahuddin41420110058/SKRIPSI/main/public/cls_model/model.json';
         const model = await tf.loadGraphModel(path);
         
         predict = model.predict(
