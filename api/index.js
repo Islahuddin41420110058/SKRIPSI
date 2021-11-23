@@ -111,7 +111,7 @@ r.get('/classify/:S/:K', function(req, res, next) {
                     `STATUS:: ${status}`
             ); // to telegram
             
-            res.json({jres_})
+            res.json({jres, jres_})
         })
     })
 });
