@@ -111,7 +111,7 @@ r.get('/classify/:S/:K', function(req, res, next) {
             bot.sendMessage(
                     2128268907, //msg.id
                     `SUHU:: ${suhu} KELEMBABAN ${kelembaban} KONDISI:: ${status}`
-                     delay(1000)
+                     
                      
             ); // to telegram
             
