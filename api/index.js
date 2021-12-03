@@ -7,7 +7,7 @@ const cls_model = require('./sdk/cls_model.js');
 
 // Bot Setting
 const TelegramBot = require('node-telegram-bot-api');
-const token = '2114853569:AAEA6ioJ-iIQrFFAaJHUNftk7-kXVsgqSwY'
+const token = '5091398105:AAHnFFJkaim8hYlIF9S_FlG0OWfwA702A-0'
 const bot = new TelegramBot(token, {polling: true});
 
 state = 0;
@@ -109,7 +109,9 @@ r.get('/classify/:S/:K', function(req, res, next) {
             const kelembaban = parseFloat(req.params.K)
             bot.sendMessage(
                     2128268907, //msg.id
-                    `SUHU:: ${suhu} KELEMBABAN ${kelembaban} Kondisi:: ${status}`
+                    `SUHU:: ${suhu},
+                     KELEMBABAN ${kelembaban},
+                     Kondisi:: ${status}`
                      
             ); // to telegram
             
