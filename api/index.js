@@ -109,8 +109,7 @@ r.get('/classify/:S/:K', function(req, res, next) {
             const kelembaban = parseFloat(req.params.K)
             bot.sendMessage(
                     2128268907, //msg.id
-                    `Suhu:: ${suhu} Kelembaban ${kelembaban}
-                     Kondisi:: ${status} `
+                    `Suhu:: ${suhu} Kelembaban ${kelembaban} Kondisi:: ${status}`
                      
             ); // to telegram
             
