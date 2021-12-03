@@ -109,6 +109,7 @@ r.get('/classify/:S/:K', function(req, res, next) {
             bot.sendMessage(
                     2128268907, //msg.id
                     `STATUS:: ${status}`
+                    `NILAI SENSOR:: ${parseFloat(req.params.S), parseFloat(req.params.K)}`
             ); // to telegram
             
             res.json({jres_})
