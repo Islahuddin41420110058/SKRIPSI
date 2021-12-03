@@ -107,13 +107,11 @@ r.get('/classify/:S/:K', function(req, res, next) {
 //             jres_.split("|");
             const suhu = parseFloat(req.params.S);
             const kelembaban = parseFloat(req.params.K);
-            import time;
+           
             bot.sendMessage(
                     2128268907, //msg.id
-                    `SUHU:: ${suhu}
-                     KELEMBABAN ${kelembaban}
-                     Kondisi:: ${status}`
-                     time.sleep(5);
+                    `SUHU:: ${suhu} KELEMBABAN ${kelembaban} KONDISI:: ${status}`
+                     delay(1000);
                      
             ); // to telegram
             
