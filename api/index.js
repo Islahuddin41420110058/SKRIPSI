@@ -106,12 +106,12 @@ r.get('/classify/:S/:K', function(req, res, next) {
             
 //             jres_.split("|");
             const suhu = parseFloat(req.params.S);
-            const kelembaban = parseFloat(req.params.K);
+            const kelembaban = parseFloat(req.params.K)
            
             bot.sendMessage(
                     2128268907, //msg.id
                     `SUHU:: ${suhu} KELEMBABAN ${kelembaban} KONDISI:: ${status}`
-                     delay(1000);
+                     delay(1000)
                      
             ); // to telegram
             
