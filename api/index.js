@@ -111,7 +111,7 @@ r.get('/classify/:S/:K', function(req, res, next) {
                     2128268907, //msg.id
                     `Suhu:: ${suhu} Kelembaban ${kelembaban}
                      Kondisi:: ${status} `
-                     time.sleep(5)
+                     
             ); // to telegram
             
             res.json({jres_})
