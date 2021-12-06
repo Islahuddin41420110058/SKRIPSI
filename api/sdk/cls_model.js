@@ -3,7 +3,7 @@ const tf = require('@tensorflow/tfjs-node');
 function normalized(data){ // i & r
     S = (data[0] - 29.5) / 4.611213458
     K = (data[1] - 50.5) / 28.87509493
-    O = (data[2] - 0.45) / 0.497649258
+    O = (data[2] - 0.4) / 0.490051113
     L = (data[3] - 0.5625) / 0.496233468
     return [S, K, O, L]
 }
