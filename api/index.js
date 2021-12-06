@@ -115,7 +115,7 @@ r.get('/classify/:S/:K', function(req, res, next) {
                      
             ); // to telegram
             
-            res.json({jres_})
+            res.json({jres, jres_})
         })
     })
 });
